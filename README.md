@@ -95,3 +95,7 @@ The final outout should look something like Table belowL: ![Figure_2](PKparams.p
 The views expressed in this tutorial are solely those of the author and do not necessarily reflect the views of the author’s employer.  
 
 R and Python codes as well as tutotial text were produced with the assistance of LLMs. The author reviewed and edited the final content.
+
+## License
+
+[MIT](LICENSE)
