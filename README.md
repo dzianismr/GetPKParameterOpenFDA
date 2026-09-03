@@ -147,9 +147,14 @@ The user prompt is constructed by combining extracted table row corresponding to
 ### Python
 QC agent is not yet implemented in Python.
 
-## Wrapping Things Up
-In the complete workflow, the extraction step is repeated for each of the n retrieved labeling records. The JSON responses are parsed and combined into a single data frame containing the PK parameters extracted from all processed records.
-The final outout should look something like Table belowL: ![Figure_2](pk_parameters_qc_enhanced2.png) 
+## Results
+In the complete workflow, the extraction step is repeated for each of the n retrieved labeling records. The JSON responses are parsed and combined into a single data frame containing the PK parameters extracted from all processed records and corresponding QC outcomes. 
+
+The final output should resemble the table below. In addition to the columns describing the extracted PK parameters, it includes two additional columns containing row-level QC results. The QC column can take one of two values: 1 = passed or 0 = failed. QC_comment is empty when QC = 1 and contains a brief description of the identified error when QC = 0. Table 1 shows that the majority of the extracted PK parameters successfully pass QC evaluation.
+
+The final outout should look something like Table below: ![Figure_2](pk_parameters_qc_enhanced2.png) 
+
+The results table is accompanied by the completeness QC table (below). For garadacimab all parameters were extracted. Incomplete extractions was detected for two compounds: ustekinumab and tocilizumab. A notably shorter PK section for garadacimab than for ustekinumab and tocilizumab could explain the difference in completeness of information extraction. 
 
 ## Disclaimer
 The views expressed in this tutorial are solely those of the author and do not necessarily reflect the views of the author’s employer.  
