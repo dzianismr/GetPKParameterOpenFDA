@@ -158,6 +158,15 @@ The results table is accompanied by the completeness QC table (below). For garad
 
 ![Figure_3](QC_completness.png) 
 
+## Outlook
+To improve the completeness of information extraction different strategies could be considered:
+- extraction of one PK parameter type at a time, e.g. first extract only clearances, then volumes of distribution etc.;
+- use a more advanced LLM model at the extraction stage, here all results were obtained with GPT-4o;
+- extract and append parameters identified as missing during the  QC completeness evaluation;
+
+This could be an interesting topic to investigate further.
+
+
 ## Disclaimer
 The views expressed in this tutorial are solely those of the author and do not necessarily reflect the views of the author’s employer.  
 
