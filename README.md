@@ -154,7 +154,9 @@ The final output should resemble the table below. In addition to the columns des
 
 The final outout should look something like Table below: ![Figure_2](pk_parameters_qc_enhanced2.png) 
 
-The results table is accompanied by the completeness QC table (below). For garadacimab all parameters were extracted. Incomplete extractions was detected for two compounds: ustekinumab and tocilizumab. A notably shorter PK section for garadacimab than for ustekinumab and tocilizumab could explain the difference in completeness of information extraction. 
+The results table is accompanied by the completeness QC table (below). For garadacimab and ustekinumab all parameters were extracted. Incomplete extractions was detected for tocilizumab. A longer PK section for tocilizumab could explain the difference in completeness of information extraction. 
+
+![Figure_3](QC_completness.png) 
 
 ## Disclaimer
 The views expressed in this tutorial are solely those of the author and do not necessarily reflect the views of the author’s employer.  
