@@ -6,8 +6,9 @@ PK parameter extraction workflow has the following key steps:
 - LLM-based extraction of PK parameters;
 - LLM-based quality control (QC):
   - completness QC;
-  - accuracy QC; 
- A flowchart for the workflow is shown below:![Figure_1](Flowcharts.png) 
+  - accuracy QC;
+
+ A flowchart for the workflow is shown below:![Figure_1](FlowchartQC.png) 
 
  Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
 
@@ -91,9 +92,10 @@ The user prompt is combined with the text from Pharmacokinetic section of the la
             raw_response = generate_response(messages)
 ```
 ## Quality Overview
-QC is implemented at two levels (![Figure_2](QCTable.png)):
+QC is implemented at two levels:
 - verify that all available PK parameters were extracted;
 - verify, parameter by parameter (or row by row), that its value, uncertainty, and metadata were extracted correctly;
+![Figure_2](QC_Table.png)
 
 ## Quality Control, Completness 
 The user prompt is constructed by combining selected columns with extracted parameters, pharmacokinetic section of the labelling document and user instructions. User instructions are the following:
