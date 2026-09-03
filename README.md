@@ -145,7 +145,7 @@ QC agent is not yet implemented in Python.
 
 ## Wrapping Things Up
 In the complete workflow, the extraction step is repeated for each of the n retrieved labeling records. The JSON responses are parsed and combined into a single data frame containing the PK parameters extracted from all processed records.
-The final outout should look something like Table belowL: ![Figure_2](PKparams.png) 
+The final outout should look something like Table belowL: ![Figure_2](pk_parameters_qc_enhanced2.png) 
 
 ## Disclaimer
 The views expressed in this tutorial are solely those of the author and do not necessarily reflect the views of the author’s employer.  
