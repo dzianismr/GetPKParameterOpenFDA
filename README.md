@@ -4,7 +4,7 @@ This is a short tutorial that demonstrates utility of Large Language models (LLM
 PK parameter extraction workflow has two key steps: 
 - retrieval of relevant drug labels via OpenFDA API;
 - LLM-based extraction of PK parameters;  
- A flowchart for the workflow is shown below:![Figure_1](Flowcharts.png) 
+ A flowchart for the workflow is shown below:![Figure_1](FlowchartsQC.png) 
 
  Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling docuemnts are provided in this tutorial. 
 
