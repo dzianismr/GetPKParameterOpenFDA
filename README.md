@@ -90,6 +90,10 @@ The user prompt is combined with the text from Pharmacokinetic section of the la
             # submit prompt and get response from the LLM
             raw_response = generate_response(messages)
 ```
+## Quality Overview
+QC is implemented at two levels (![Figure_2](QCTable.png)):
+- verify that all available PK parameters were extracted;
+- verify, parameter by parameter (or row by row), that its value, uncertainty, and metadata were extracted correctly;
 
 ## Quality Control, Completness 
 The user prompt is constructed by combining selected columns with extracted parameters, pharmacokinetic section of the labelling document and user instructions. User instructions are the following:
