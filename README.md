@@ -5,14 +5,14 @@ PK parameter extraction workflow has the following key steps:
 - retrieval of relevant drug labels via OpenFDA API;
 - LLM-based extraction of PK parameters;
 - LLM-based quality control (QC):
-  - completness QC;
+  - completeness QC;
   - accuracy QC;
 
- A flowchart for the workflow is shown below:![Figure_1](FlowchartQC.png) 
+A flowchart for the workflow is shown below:![Figure_1](FlowchartQC.png) 
 
- Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
+Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
 
- To make the examples easily accessible and executable they are published as Google Colab notebooks. They could be executes directly in a web browser. Note, before running the notebooks, the OPENAI_API_KEY environment variable must be configured securely.
+To make the examples easily accessible and executable they are published as Google Colab notebooks. They could be executes directly in a web browser. Note, before running the notebooks, the OPENAI_API_KEY environment variable must be configured securely.
 
 ## Searching for and Retrieving Relevant Labels via OpenFDA API
 The first step is to search for and retrieve relevant drug-labeling records using the openFDA Drug Label API. In this case we will retrieve three labeling documents which satisify the following creteria: is monoclonal antibody and includes "paediatric" in the PK section. Detaield API description is available at openFDA web page (https://open.fda.gov/). 
@@ -35,6 +35,7 @@ response = requests.get(url)
 
 ## Setting Up the Interface to LLM
 The following code initializes the LLM interface. A system prompt defines the model’s role and expected output format. In this example, the system prompt is:  
+
 "You an experienced pharmacokineticist with attention to the detail. You specialize in extracting PK parameters from the text. You always return results in JSON format."
 
 
@@ -62,6 +63,7 @@ def generate_response(messages: List[Dict]) -> str:
 
 ## Calling LLM to Extract PK Parameters
 The user prompt is combined with the text from Pharmacokinetic section of the labelling document and submitted to LLM for PK parameter extraction. The user prompt is the following:
+
 "The following text was extracted from FDA labelling document. Extract reported PK parameters e.g. CL, AUC, Cmin (Ctrough), Cmax also extract uncertainty of the estimate as well as units. Extracted parameters should be reported in tabular view. Table columns should include: drug, population, parameter, value, uncertainty_measure, uncertainty_type, unit."
 
 
@@ -99,6 +101,7 @@ QC is implemented at two levels:
 
 ## Quality Control, Completness 
 The user prompt is constructed by combining selected columns with extracted parameters, pharmacokinetic section of the labelling document and user instructions. User instructions are the following:
+
 "The following summary table in JSON format contains pharmacokinetic parameters and metadata extracted from the PK section of the FDA labelling document. Check if all PK parameters, for which numerical values are available in the FDA labelling document, specifically CL (clearance), Vd (volume of distribution), AUC (Caverage), Cmin (Ctrough), Cmax are present in the summary table. If an additional PK parameter is mentioned, however it's numerical value is not reported - ignore it. Response should include two and only two values COMPLETE and COMMENT. COMPLETE: is set to 1 if summary table is complete and to 0 if summary table is not complete. COMMENT: contains empty string if COMPLETE=1, if COMPLETE=0 COMMENT lists PK parameters missing in the summary table, specifically PK parameters, their values and population. Importantly, COMPLETE should be a single string."
 
 ### R
@@ -122,6 +125,7 @@ QC agent is not yet implemented in Python.
 
 ## Quality Control, Accuracy 
 The user prompt is constructed by combining extracted table row corresponding to a single PK parameter with pharmacokinetic section of the labelling document and user instructions. User instructions are the following:
+
 "The following pharmacokinetic parameter and metadata were extracted from the PK section of the FDA labelling document. Perform quality control of the extracted PK parameter. Specifically, confirm numerical accuracy of the extracted PK parameter, its uncertainty and metadata describing unit of the parameter value, dose and population it was extracted from. Response should include two and only two values: QC: 1 = passed, 0 = failed. QC_comment: empty string if QC=1, a short description of identified error if QC=0."
 
 ### R
