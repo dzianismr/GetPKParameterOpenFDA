@@ -8,7 +8,7 @@ PK parameter extraction workflow has the following key steps:
   - completeness QC;
   - accuracy QC;
 
-A flowchart for the workflow is shown below:![Figure_1](FlowchartQC.png) 
+A flowchart for the workflow is shown below:![Figure_1](FlowchartsQC.png) 
 
 Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). 
 
