@@ -10,7 +10,9 @@ PK parameter extraction workflow has the following key steps:
 
 A flowchart for the workflow is shown below:![Figure_1](FlowchartQC.png) 
 
-Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
+Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). 
+
+Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
 
 To make the examples easily accessible and executable they are published as Google Colab notebooks. They could be executes directly in a web browser. Note, before running the notebooks, the OPENAI_API_KEY environment variable must be configured securely.
 
@@ -64,7 +66,7 @@ def generate_response(messages: List[Dict]) -> str:
 ## Calling LLM to Extract PK Parameters
 The user prompt is combined with the text from Pharmacokinetic section of the labelling document and submitted to LLM for PK parameter extraction. The user prompt is the following:
 
-"The following text was extracted from FDA labelling document. Extract reported PK parameters e.g. CL, AUC, Cmin (Ctrough), Cmax also extract uncertainty of the estimate as well as units. Extracted parameters should be reported in tabular view. Table columns should include: drug, population, parameter, value, uncertainty_measure, uncertainty_type, unit."
+"The following text was extracted from FDA labelling document. Extract reported PK parameters e.g. CL (clearance), Vd (volume of distribution), AUC (Caverage), Cmin (Ctrough), Cmax also extract uncertainty of the estimate as well as units. Extracted parameters should be reported in tabular view. Table columns should include: drug, dose, population, parameter, value, uncertainty_value, uncertainty_type, unit."
 
 
 ### R
@@ -93,14 +95,14 @@ The user prompt is combined with the text from Pharmacokinetic section of the la
             # submit prompt and get response from the LLM
             raw_response = generate_response(messages)
 ```
-## Quality Overview
-QC is implemented at two levels:
-- verify that all available PK parameters were extracted;
-- verify, parameter by parameter (or row by row), that its value, uncertainty, and metadata were extracted correctly;
+## Quality Control Overview
+In this workflow two LLM-based QC agents are implemented:
+- QC completeness: verify that all available PK parameters were extracted;
+- QC accuracy: verify, parameter by parameter (or row by row), that parameter value, uncertainty, and metadata were extracted correctly;
 ![Figure_2](QC_Table.png)
 
-## Quality Control, Completness 
-The user prompt is constructed by combining selected columns with extracted parameters, pharmacokinetic section of the labelling document and user instructions. User instructions are the following:
+## Quality Control, Completeness 
+To verify completeness of PK parameter extraction a user prompt is constructed by combining key extracted information (table columns: parameter, parameter value, dose and population) with pharmacokinetic section of the labelling document and user instructions. User instructions are the following:
 
 "The following summary table in JSON format contains pharmacokinetic parameters and metadata extracted from the PK section of the FDA labelling document. Check if all PK parameters, for which numerical values are available in the FDA labelling document, specifically CL (clearance), Vd (volume of distribution), AUC (Caverage), Cmin (Ctrough), Cmax are present in the summary table. If an additional PK parameter is mentioned, however it's numerical value is not reported - ignore it. Response should include two and only two values COMPLETE and COMMENT. COMPLETE: is set to 1 if summary table is complete and to 0 if summary table is not complete. COMMENT: contains empty string if COMPLETE=1, if COMPLETE=0 COMMENT lists PK parameters missing in the summary table, specifically PK parameters, their values and population. Importantly, COMPLETE should be a single string."
 
