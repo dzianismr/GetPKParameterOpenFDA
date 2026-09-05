@@ -126,9 +126,11 @@ To verify completeness of PK parameter extraction a user prompt is constructed b
 QC agent is not yet implemented in Python.
 
 ## Quality Control, Accuracy 
-The user prompt is constructed by combining extracted table row corresponding to a single PK parameter with pharmacokinetic section of the labelling document and user instructions. User instructions are the following:
+To verify accuracy of PK parameter extraction the user prompt is constructed by combining extracted table row corresponding to a single PK parameter with pharmacokinetic section of the labelling document and user instructions. User instructions are the following:
 
 "The following pharmacokinetic parameter and metadata were extracted from the PK section of the FDA labelling document. Perform quality control of the extracted PK parameter. Specifically, confirm numerical accuracy of the extracted PK parameter, its uncertainty and metadata describing unit of the parameter value, dose and population it was extracted from. Response should include two and only two values: QC: 1 = passed, 0 = failed. QC_comment: empty string if QC=1, a short description of identified error if QC=0."
+
+Accuracy quality control is applied sequentially row-by-row (parameter-to-parameter) to the entires table.
 
 ### R
 ```r
