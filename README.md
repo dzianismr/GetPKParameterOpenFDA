@@ -152,9 +152,9 @@ Accuracy quality control is applied sequentially row-by-row (parameter-to-parame
 QC agent is not yet implemented in Python.
 
 ## Results
-In the complete workflow, the extraction step is repeated for each of the n retrieved labeling records. The JSON responses are parsed and combined into a single data frame containing the PK parameters extracted from all processed records and corresponding QC outcomes. 
+Above I have described processing of a PK section of FDA labelling document for a single drug. In the complete workflow, the extraction step is repeated for each of the n retrieved labeling records. The JSON responses are parsed and combined into a single data frame containing the PK parameters extracted from all processed records and corresponding QC outcomes. 
 
-The final output should resemble the table below. In addition to the columns describing the extracted PK parameters, it includes two additional columns containing row-level QC results. The QC column can take one of two values: 1 = passed or 0 = failed. QC_comment is empty when QC = 1 and contains a brief description of the identified error when QC = 0. Table 1 shows that the majority of the extracted PK parameters successfully pass QC evaluation.
+The final output should resemble the table below. In addition to the columns describing the extracted PK parameters, it includes two additional columns containing row-level QC results. The QC column can take one of two values: 1 = passed or 0 = failed. QC_comment is empty when QC = 1 and contains a brief description of the identified error when QC = 0. Table 1 shows that the majority of the extracted PK parameters successfully pass accuracy QC evaluation.
 
 The final outout should look something like Table below: ![Figure_2](pk_parameters_qc_enhanced2.png) 
 
