@@ -1,4 +1,4 @@
-# Extracting PK Parameters from FDA Labeling Documents
+# An Agentic Workflow for PK Parameter Extraction and Quality Control
 ## Introduction
 This is a short tutorial that demonstrates utility of Large Language models (LLMs) in pharmcomatrics workflows. The tutorial focuses on PK parameters extraction from FDA labeling documents. Information extraction from unstructured text is often an early and time-consuming step in PMX model development. Here I will demonstrate how to automate this step with the help of LLM-based agentic workflow. 
 PK parameter extraction workflow has the following key steps: 
@@ -12,7 +12,7 @@ A flowchart for the workflow is shown below:![Figure_1](FlowchartsQC.png)
 
 Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). 
 
-Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
+Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_withQC_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_withQC_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
 
 To make the examples easily accessible and executable they are published as Google Colab notebooks. They could be executes directly in a web browser. Note, before running the notebooks, the OPENAI_API_KEY environment variable must be configured securely.
 
@@ -123,6 +123,27 @@ To verify completeness of PK parameter extraction a user prompt is constructed b
 ```
 
 ### Python
+```python
+  # Create QC completness prompt by combining user instruction with the pk section
+  # and selected columns ("dose", "population", "parameter", "value")
+    updated_messageQC2 = messageQC2.copy()
+    updated_messageQC2['content'] = (
+        messageQC2.get('content', '')
+        + " Extracted PK parameters in JSON format: "
+        + json_pk1_str
+        + ". PK Section of the labelling document: "
+        + pk_text
+    )
+
+    messages = [
+        message1,
+        updated_messageQC2
+    ]
+
+    # Submit prompt and get response from the LLM
+    raw_response_QC = generate_response(messages)
+```
+
 QC agent is not yet implemented in Python.
 
 ## Quality Control, Accuracy 
@@ -149,7 +170,26 @@ Accuracy quality control is applied sequentially row-by-row (parameter-to-parame
 ```
 
 ### Python
-QC agent is not yet implemented in Python.
+```python
+    # Create QC accuracy prompt by combining user instruction with the pk section of the labelling documet
+    # and single row containing extracted PK parameter
+    updated_messageQC1 = messageQC1.copy()
+    updated_messageQC1['content'] = (
+        messageQC1.get('content', '')
+        + " Extracted PK parameters in JSON format: "
+        + json_pk1_str
+        + ". PK Section of the labelling document: "
+        + pk_text
+    )
+
+    messages = [
+        message1,
+        updated_messageQC1
+    ]
+
+    # Submit prompt and get response from the LLM
+    raw_response_QC = generate_response(messages)
+```
 
 ## Results
 Above I have described processing of a PK section of FDA labelling document for a single drug. In the complete workflow, the extraction step is repeated for each of the n retrieved labeling records. The JSON responses are parsed and combined into a single data frame containing the PK parameters extracted from all processed records and corresponding QC outcomes. 
@@ -162,7 +202,7 @@ The results table is accompanied by the completeness QC table (below). For garad
 
 ![Figure_3](QC_completness.png) 
 
-## Outlook
+## Discussion
 To improve the completeness of information extraction different strategies could be considered:
 - extraction of one PK parameter type at a time, e.g. first extract only clearances, then volumes of distribution etc.;
 - use a more advanced LLM model at the extraction stage, here all results were obtained with GPT-4o;
