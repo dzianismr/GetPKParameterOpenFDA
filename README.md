@@ -1,4 +1,4 @@
-# Extracting PK Parameters from FDA Labeling Documents
+# An Agentic Workflow for PK Parameter Extraction and Quality Control
 ## Introduction
 This is a short tutorial that demonstrates utility of Large Language models (LLMs) in pharmcomatrics workflows. The tutorial focuses on PK parameters extraction from FDA labeling documents. Information extraction from unstructured text is often an early and time-consuming step in PMX model development. Here I will demonstrate how to automate this step with the help of LLM-based agentic workflow. 
 PK parameter extraction workflow has the following key steps: 
