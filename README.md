@@ -12,7 +12,7 @@ A flowchart for the workflow is shown below:![Figure_1](FlowchartsQC.png)
 
 Python is the most commonly used programming language for developing LLM-based applications/agents, whereas R is widely used  by pharmacometricians. LLMs can be called from Python via LiteLLM package (https://docs.litellm.ai/) and from R with the help of ellmer pacakge (https://ellmer.tidyverse.org/). 
 
-Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
+Both Python (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_withQC_Python.ipynb) and R (https://github.com/dzianismr/GetPKParameterOpenFDA/blob/main/OpenFDA_getPK_withQC_R.ipynb) codes for LLM-based PK parameter extraction from FDA labelling documents are provided in this tutorial. 
 
 To make the examples easily accessible and executable they are published as Google Colab notebooks. They could be executes directly in a web browser. Note, before running the notebooks, the OPENAI_API_KEY environment variable must be configured securely.
 
